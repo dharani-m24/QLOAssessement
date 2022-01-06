@@ -7,6 +7,8 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
+import com.qlo.baseClass.BaseClass;
+
 public class TakeScreenShot extends BaseClass{
 
 	public static String getscreenshotpath(String Testcasename ) throws IOException {

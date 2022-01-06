@@ -2,12 +2,13 @@ package com.qlo.pages;
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.qlo.utilities.BaseClass;
+import com.qlo.baseClass.BaseClass;
 import com.qlo.utilities.TakeScreenShot;
 
 public class OrderCancelPage extends BaseClass{
@@ -57,6 +58,9 @@ public class OrderCancelPage extends BaseClass{
 	@FindBy(xpath="(//span[text()='Submit'])[2]")
 	WebElement submitReason;
 	
+//	@FindBy(id="order_refund_request")
+//	WebElement cancelButton;
+	
 	public OrderCancelPage() {
 		PageFactory.initElements(driver, this);
 	}
@@ -84,9 +88,22 @@ public class OrderCancelPage extends BaseClass{
 	public void requestForCancellation() throws IOException {
 		//cancelBookings.click();
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", cancelBookings);
+//		if(cancelBookings.isDisplayed()) {
+//			String screenshotName="CancelBooking";
+//			TakeScreenShot.getscreenshotpath(screenshotName);
+//			((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancelBookings);
+//		}
+//		
+//		else {
+//			System.out.println("Cancel button is not available");
+//		}
+//		
+//		boolean status=cancelBookings.isDisplayed();
+		Assert.assertTrue(cancelBookings.isDisplayed());
 		String screenshotName="CancelBooking";
 		TakeScreenShot.getscreenshotpath(screenshotName);
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", cancelBookings);
+		
 		
 	}
 	

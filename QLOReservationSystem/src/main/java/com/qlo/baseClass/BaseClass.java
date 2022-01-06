@@ -1,4 +1,4 @@
-package com.qlo.utilities;
+package com.qlo.baseClass;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,6 +41,8 @@ public class BaseClass {
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
+		//cookies
+		//driver.manage().deleteAllCookies();
 		driver.get(properties.getProperty("url"));
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		

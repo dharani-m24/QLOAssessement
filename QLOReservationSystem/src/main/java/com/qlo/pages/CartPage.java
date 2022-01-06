@@ -2,6 +2,7 @@ package com.qlo.pages;
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -12,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.qlo.utilities.BaseClass;
+import com.qlo.baseClass.BaseClass;
 import com.qlo.utilities.TakeScreenShot;
 
 public class CartPage extends BaseClass{
@@ -62,16 +63,21 @@ public class CartPage extends BaseClass{
 	@FindBy(xpath="//span[text()=' Proceed to checkout']")
 	WebElement checkOut;
 	
+	@FindBy(xpath="//p[@class='alert alert-warning']")
+	WebElement warningMessage;
+	
 	public CartPage() {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void login(String emailId, String pwd) {
+	public void login(String emailId, String pwd) throws InterruptedException {
 		signInBtn.click();
 		emailAddress.clear();
-		emailAddress.sendKeys(emailId);
+		Thread.sleep(2000);
+		emailAddress.sendKeys(emailId, Keys.ENTER);
 		password.clear();
-		password.sendKeys(pwd);
+		Thread.sleep(2000);
+		password.sendKeys(pwd, Keys.ENTER);
 		signIn.click();
 
 	}
@@ -79,9 +85,10 @@ public class CartPage extends BaseClass{
 	public void clickHomeButton() {
 		//homeButton.click();
 		
-		WebDriverWait wait = new WebDriverWait (driver, 50);
+		WebDriverWait wait = new WebDriverWait (driver, 80);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()=' Home']")));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", homeButton);
+		homeButton.click();
+		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", homeButton);
 	}
 	
 	public void enterHotelLocation(String locationName) throws InterruptedException {
@@ -107,6 +114,7 @@ public class CartPage extends BaseClass{
 	
 		
 	}
+	
 	
 	
 	public void selectCheckInDate()  {
@@ -144,6 +152,15 @@ public class CartPage extends BaseClass{
 		
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", removeCart);
 		Thread.sleep(2000);
+		
+	}
+	
+	public void validCartMessage() {
+		
+		String message=warningMessage.getText();
+		System.out.println(message);
+		
+		Assert.assertEquals(message, "Till now you did not added any room in your cart.");
 		
 	}
 }

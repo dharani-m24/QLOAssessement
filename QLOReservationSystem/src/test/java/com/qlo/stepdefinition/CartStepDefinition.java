@@ -1,7 +1,10 @@
 package com.qlo.stepdefinition;
 
+import java.util.ArrayList;
+
+import com.qlo.baseClass.BaseClass;
+import com.qlo.excelData.ReadExcelFile;
 import com.qlo.pages.CartPage;
-import com.qlo.utilities.BaseClass;
 import com.qlo.utilities.TakeScreenShot;
 
 import cucumber.api.java.en.Then;
@@ -9,12 +12,15 @@ import cucumber.api.java.en.Then;
 public class CartStepDefinition extends BaseClass{
 	
 	CartPage cartPage;
+	ReadExcelFile excelData;
 	
-	@Then("^click Sign In and enter email Address \"([^\"]*)\" and password \"([^\"]*)\"\\.$")
-	public void click_Sign_In_and_enter_email_Address_and_password(String userId, String password) throws Throwable {
+	@Then("^click Sign In and enter email Address and password$")
+	public void click_Sign_In_and_enter_email_Address_and_password() throws Throwable {
 		
 		cartPage=new CartPage();
-		cartPage.login(userId, password);
+		excelData=new ReadExcelFile();
+		 ArrayList<String> testData=excelData.getData("User 2");
+		cartPage.login(testData.get(1), testData.get(4));
 	    
 	}
 	
@@ -24,10 +30,12 @@ public class CartStepDefinition extends BaseClass{
 		cartPage.clickHomeButton();
 	}
 
-	@Then("^Enter/Select Hotel Location as \"([^\"]*)\"$")
-	public void enter_Select_Hotel_Location_as(String hotelLocation) throws Throwable {
+	@Then("^Enter/Select Hotel Location$")
+	public void enter_Select_Hotel_Location() throws Throwable {
 		cartPage=new CartPage();
-		cartPage.enterHotelLocation(hotelLocation);
+		excelData=new ReadExcelFile();
+		 ArrayList<String> testData=excelData.getData("User 2");
+		cartPage.enterHotelLocation(testData.get(5));
 	}
 
 	@Then("^Select Hotel$")
@@ -64,6 +72,8 @@ public class CartStepDefinition extends BaseClass{
 	
 	@Then("^Take screenshot$")
 	public void take_screenshot() throws Throwable {
+		cartPage=new CartPage();
+		cartPage.validCartMessage();
 		String screenshotName="viewCart";
 		TakeScreenShot.getscreenshotpath(screenshotName);
 	}

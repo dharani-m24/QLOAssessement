@@ -9,7 +9,10 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(features="FeatureFiles", 
 				glue="com.qlo.stepdefinition",
 				dryRun=false,
-				plugin = {"html:target/cucumber-html-report","com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/extendreport.html"})
+				plugin = {"html:target/cucumber-html-report","com.cucumber.listener.ExtentCucumberFormatter:target/QLO Reservation extend reports/extendreport.html"},
+				tags="@OrderCancel")
 public class TestRunner {
 
+	
+	
 }

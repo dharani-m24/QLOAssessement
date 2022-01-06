@@ -5,7 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.qlo.utilities.BaseClass;
+import com.qlo.baseClass.BaseClass;
+
+import junit.framework.Assert;
 
 public class RegisterPage extends BaseClass{
 	
@@ -36,6 +38,9 @@ public class RegisterPage extends BaseClass{
 	@FindBy(xpath="//button[@type='submit'][1]")
 	WebElement register;
 	
+	@FindBy(xpath="//p[@class='alert alert-success']")
+	WebElement successMessage;
+	
 	@FindBy(id="user_info_acc")
 	WebElement userName;
 	
@@ -52,6 +57,7 @@ public class RegisterPage extends BaseClass{
 	}
 	
 	public void enterEmailAddress(String emailId) {
+		System.out.println(emailId);
 		emailAddress.sendKeys(emailId);
 	}
 	
@@ -76,6 +82,9 @@ public class RegisterPage extends BaseClass{
 	
 	public void submit() {
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", register);
+		String message=successMessage.getText();
+		System.out.println(message);
+		Assert.assertEquals(message, "Your account has been created.");
 		//register.click();
 	}
 	
